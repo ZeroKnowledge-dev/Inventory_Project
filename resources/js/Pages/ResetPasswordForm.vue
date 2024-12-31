@@ -4,8 +4,18 @@ import { reactive } from 'vue';
 
 const state = reactive({
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    showPassword: false,
+    showConfirmPassword: false
 });
+
+function togglePasswordVisibility() {
+    state.showPassword = !state.showPassword;
+}
+
+function toggleConfirmPasswordVisibility() {
+    state.showConfirmPassword = !state.showConfirmPassword;
+}
 
 async function resetPassword() {
     if (state.password === '' || state.confirmPassword === '') {
@@ -53,18 +63,25 @@ async function resetPassword() {
             <form>
                 <!-- New Password Field -->
                 <div class="relative mb-6">
-                    <input v-model="state.password" type="password" id="newPassword"
-                        class="w-full py-4 pl-12 bg-teal-300/5 border border-black/10 rounded-xl text-white-500 text-base focus:outline-none focus:ring-1 focus:ring-white/30 placeholder-white-500 transition"
-                        placeholder="New Password" required />
+                    <input v-model="state.password" :type="state.showPassword ? 'text' : 'password'" id="password"
+                        class="w-full py-4 pl-12 bg-teal-300/5  border border-black/10 rounded-xl text-white-500 text-base focus:outline-none focus:ring-1 focus:ring-white/30 placeholder-white-500 transition"
+                        placeholder="New Password" />
                     <i class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white-500 fa fa-lock"></i>
+                    <i @click="togglePasswordVisibility"
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white-500 fa"
+                        :class="state.showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
                 </div>
 
                 <!-- Confirm Password Field -->
                 <div class="relative mb-6">
-                    <input v-model="state.confirmPassword" type="password" id="confirmPassword"
-                        class="w-full py-4 pl-12 bg-teal-300/5 border border-black/10 rounded-xl text-white-500 text-base focus:outline-none focus:ring-1 focus:ring-white/30 placeholder-white-500 transition"
-                        placeholder="Confirm Password" required />
+                    <input v-model="state.confirmPassword" :type="state.showConfirmPassword ? 'text' : 'password'"
+                        id="password"
+                        class="w-full py-4 pl-12 bg-teal-300/5  border border-black/10 rounded-xl text-white-500 text-base focus:outline-none focus:ring-1 focus:ring-white/30 placeholder-white-500 transition"
+                        placeholder="Confirm Password" />
                     <i class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white-500 fa fa-lock"></i>
+                    <i @click="toggleConfirmPasswordVisibility"
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white-500 fa"
+                        :class="state.showConfirmPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
                 </div>
 
                 <button @click="resetPassword" type="submit"
