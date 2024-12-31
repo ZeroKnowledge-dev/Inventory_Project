@@ -1,6 +1,5 @@
 <script setup>
 import nProgress from 'nprogress';
-import Swal from 'sweetalert2';
 import { reactive, ref } from 'vue';
 
 const showDropdown = ref(false);
