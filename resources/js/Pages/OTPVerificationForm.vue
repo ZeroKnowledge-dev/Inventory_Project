@@ -1,4 +1,5 @@
 <script setup>
+import nProgress from 'nprogress';
 import { reactive } from 'vue';
 
 const state = reactive({
@@ -10,7 +11,9 @@ async function verifyOTP() {
     if (state.otp === '') {
         alert('Please enter OTP');
     } else {
+        nProgress.start();
         const response = await axios.post('/verify-otp', state);
+        nProgress.done();
         if (response.status === 200 && response.data.status === 'success') {
             sessionStorage.clear();
             window.location.href = '/resetPassword';
@@ -61,10 +64,6 @@ async function verifyOTP() {
             </form>
 
             <div class="text-center text-sm text-white/60 mt-6">
-                <p>
-                    Didn't receive the OTP?
-                    <a href="#" class="hover:opacity-80">Resend OTP</a>
-                </p>
                 <p class="mt-4">
                     Back to Login?
                     <a href="/login" class="hover:opacity-80">Sign In</a>

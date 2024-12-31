@@ -1,4 +1,5 @@
 <script setup>
+import nProgress from 'nprogress';
 import { reactive } from 'vue';
 
 
@@ -11,7 +12,9 @@ async function login() {
     if (state.email === '' || state.password === '') {
         alert('Please enter email and password');
     } else {
+        nProgress.start();
         const response = await axios.post('/user-login', state);
+        nProgress.done();
         if (response.status === 200 && response.data.status === 'success') {
             window.location.href = '/dashboard';
         } else {

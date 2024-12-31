@@ -1,4 +1,5 @@
 <script setup>
+import nProgress from 'nprogress';
 import { reactive } from 'vue';
 
 const state = reactive({
@@ -10,7 +11,9 @@ async function forgotPassword() {
         alert('Please enter email');
     } else {
         try {
+            nProgress.start();
             const response = await axios.post('/send-otp', state);
+            nProgress.done();
             if (response.status === 200 && response.data.status === 'success') {
                 sessionStorage.setItem('email', state.email);
                 window.location.href = '/otpVerification';

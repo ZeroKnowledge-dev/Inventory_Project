@@ -1,4 +1,5 @@
 <script setup>
+import nProgress from 'nprogress';
 import { reactive } from 'vue';
 
 const state = reactive({
@@ -13,7 +14,9 @@ async function register() {
     if (state.firstName === '' || state.lastName === '' || state.email === '' || state.phone === '' || state.password === '') {
         alert('Please enter all fields');
     } else {
+        nProgress.start();
         const response = await axios.post('/user-registration', state);
+        nProgress.done();
         if (response.status === 200 && response.data.status === 'success') {
             window.location.href = '/login';
         } else {

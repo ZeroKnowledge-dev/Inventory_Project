@@ -1,4 +1,6 @@
 <script setup>
+import nProgress from 'nprogress';
+import Swal from 'sweetalert2';
 import { reactive, ref } from 'vue';
 
 const showDropdown = ref(false);
@@ -18,7 +20,10 @@ function toggleDropdown() {
 getProfile();
 
 async function getProfile() {
+    nProgress.start();
     const response = await axios.get('/user-profile');
+    nProgress.done();
+
     if (response.status === 200 && response.data.status === 'success') {
         let data = response.data.data;
         state.firstName = data.firstName;

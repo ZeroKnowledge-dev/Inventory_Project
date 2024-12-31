@@ -1,4 +1,5 @@
 <script setup>
+import nProgress from 'nprogress';
 import { reactive } from 'vue';
 
 const state = reactive({
@@ -12,7 +13,9 @@ async function resetPassword() {
     } else if (state.password !== state.confirmPassword) {
         alert('Passwords do not match');
     } else {
+        nProgress.start();
         const response = await axios.post('/reset-password', { password: state.password });
+        nProgress.done();
         if (response.status === 200 && response.data.status === 'success') {
             debugger;
             window.location.href = '/login';

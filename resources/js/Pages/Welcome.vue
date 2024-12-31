@@ -68,9 +68,13 @@
 
             <!-- Call to Action (Get Started Button) -->
             <div class="mt-16">
-                <a href="/registration"
+                <a href="/login"
                     class="inline-block px-8 py-3 text-xl font-semibold bg-black text-white rounded-full hover:bg-gray-800 transition ease-in-out duration-300 transform hover:scale-105">
-                    Get Started
+                    Log In
+                </a>
+                <a href="/registration"
+                    class="inline-block px-8 py-3 text-xl font-semibold bg-black text-white rounded-full hover:bg-gray-800 transition ease-in-out duration-300 transform hover:scale-105 ml-6">
+                    Sign Up
                 </a>
             </div>
 
