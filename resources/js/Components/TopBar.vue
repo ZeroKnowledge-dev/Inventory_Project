@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import Sidebar from './Sidebar.vue';
 
 const showDropdown = ref(false);
 
@@ -29,18 +30,8 @@ function toggleDropdown() {
                     @click="toggleDropdown" />
                 <!-- Dropdown Menu -->
                 <div v-if="showDropdown"
-                    class="absolute right-0 mt-2 w-48 bg-white text-black rounded-lg shadow-lg z-50">
-                    <ul class="py-2">
-                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                            <a href="/profile"><i class="fa fa-user-circle mr-4"></i> Profile</a>
-                        </li>
-                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                            <a href="#"><i class="fa fa-cogs mr-4"></i> Settings</a>
-                        </li>
-                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                            <a href="/logout"><i class="fa fa-sign-out-alt mr-4"></i> Logout</a>
-                        </li>
-                    </ul>
+                    class="absolute right-0 py-4 w-48 bg-cyan-300/50 backdrop-blur-xl border-r border-cyan-300/10 text-black rounded-lg shadow-lg z-50">
+                    <Sidebar />
                 </div>
             </div>
         </div>

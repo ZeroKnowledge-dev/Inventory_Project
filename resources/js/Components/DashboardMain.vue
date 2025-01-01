@@ -1,4 +1,18 @@
 <script setup>
+import { reactive } from 'vue';
+
+
+const userName = reactive({
+    name: ''
+});
+
+getName();
+
+async function getName() {
+    const response = await axios.get('/user-profile');
+    let data = response.data.data;
+    userName.name = data.firstName + ' ' + data.lastName;
+}
 
 </script>
 
@@ -8,7 +22,7 @@
         <div class="max-w-7xl mx-auto">
             <!-- Welcome Section -->
             <div class="text-center mb-12">
-                <h1 class="text-4xl font-extrabold text-purple-500">Welcome Back, User</h1>
+                <h1 class="text-4xl font-extrabold text-purple-500">Welcome Back, {{ userName.name }}</h1>
                 <p class="text-lg text-gray-500 mt-2">Here's an overview of your activity and details.</p>
             </div>
 

@@ -13,8 +13,9 @@ import DashboardMain from '@/Components/DashboardMain.vue';
         <!-- Sidebar and Main Content -->
         <div class="flex flex-1">
             <!-- Sidebar  -->
-            <Sidebar />
-
+            <aside class="w-64 bg-cyan-300/50 backdrop-blur-xl border-r border-cyan-300/10 p-4 shadow-xl">
+                <Sidebar />
+            </aside>
             <!-- Main Content  -->
             <DashboardMain />
         </div>
