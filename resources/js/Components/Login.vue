@@ -24,24 +24,11 @@ function validateEmail() {
     }
 }
 
-// Validate password (minimum length)
-function validatePassword() {
-    if (state.password === '') {
-        state.errors.password = 'Password is required';
-    } else if (state.password.length < 8) {
-        state.errors.password = 'Password must be at least 8 characters';
-    } else {
-        state.errors.password = '';
-    }
-}
-
 // Login function
 async function login() {
-    // Run validations before sending the request
     validateEmail();
-    validatePassword();
 
-    if (state.errors.email || state.errors.password) {
+    if (state.errors.email) {
         return; // Do not proceed if there are validation errors
     }
 
@@ -77,17 +64,16 @@ function togglePasswordVisibility() {
         <form id="loginForm">
             <p v-if="state.errors.email" class="text-red-500 text-sm mt-1">{{ state.errors.email }}</p>
             <div class="relative mb-6">
-                <input v-model="state.email" type="email" required id="email"
+                <input v-model="state.email" type="email" required
                     class="w-full py-4 pl-12 bg-teal-300/5  border border-black/10 rounded-xl text-white-500 text-base focus:outline-none focus:ring-1 focus:ring-white/30 placeholder-white-500 transition"
                     placeholder="Email address" @blur="validateEmail" />
                 <i class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white-500 fa fa-envelope"></i>
             </div>
 
-            <p v-if="state.errors.password" class="text-red-500 text-sm mt-1">{{ state.errors.password }}</p>
             <div class="relative mb-6">
-                <input v-model="state.password" :type="state.showPassword ? 'text' : 'password'" id="password"
+                <input v-model="state.password" :type="state.showPassword ? 'text' : 'password'"
                     class="w-full py-4 pl-12 bg-teal-300/5  border border-black/10 rounded-xl text-white-500 text-base focus:outline-none focus:ring-1 focus:ring-white/30 placeholder-white-500 transition"
-                    placeholder="Password" @blur="validatePassword" />
+                    placeholder="Password" />
                 <i class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white-500 fa fa-lock"></i>
                 <i @click="togglePasswordVisibility"
                     class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white-500 fa"

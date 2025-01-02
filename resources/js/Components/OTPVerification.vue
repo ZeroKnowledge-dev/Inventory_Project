@@ -34,11 +34,10 @@ async function verifyOTP() {
         </div>
         <form>
             <div class="relative mb-6">
-                <input v-model="state.otp" type="text" id="otp"
+                <input v-model="state.otp" type="text"
                     class="w-full py-4 pl-12 bg-teal-300/5 border border-black/10 rounded-xl text-white-500 text-base focus:outline-none focus:ring-1 focus:ring-white/30 placeholder-white-500 transition"
-                    placeholder="Enter OTP" required maxlength="6" />
+                    placeholder="Enter OTP" required maxlength="4" />
                 <i class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white-500 fa fa-key"></i>
-                <span class="text-red-500 text-sm mt-1 hidden" id="otpError"></span>
             </div>
 
             <button @click="verifyOTP" type="submit"
