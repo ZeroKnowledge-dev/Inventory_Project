@@ -2,27 +2,64 @@
 import nProgress from 'nprogress';
 import { reactive } from 'vue';
 
-
 const state = reactive({
     email: '',
     password: '',
-    showPassword: false
+    showPassword: false,
+    errors: {
+        email: '',
+        password: ''
+    }
 });
 
-async function login() {
-    if (state.email === '' || state.password === '') {
-        alert('Please enter email and password');
+// Validate email format
+function validateEmail() {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (state.email === '') {
+        state.errors.email = 'Email is required';
+    } else if (!emailRegex.test(state.email)) {
+        state.errors.email = 'Please enter a valid email address';
     } else {
-        nProgress.start();
+        state.errors.email = '';
+    }
+}
+
+// Validate password (minimum length)
+function validatePassword() {
+    if (state.password === '') {
+        state.errors.password = 'Password is required';
+    } else if (state.password.length < 8) {
+        state.errors.password = 'Password must be at least 8 characters';
+    } else {
+        state.errors.password = '';
+    }
+}
+
+// Login function
+async function login() {
+    // Run validations before sending the request
+    validateEmail();
+    validatePassword();
+
+    if (state.errors.email || state.errors.password) {
+        return; // Do not proceed if there are validation errors
+    }
+
+    nProgress.start();
+    try {
         const response = await axios.post('/user-login', state);
         nProgress.done();
+
         if (response.status === 200 && response.data.status === 'success') {
             window.location.href = '/dashboard';
         } else {
             alert(response.data.message);
         }
+    } catch (error) {
+        nProgress.done();
+        alert('An error occurred while logging in. Please try again later.');
     }
-};
+}
 
 function togglePasswordVisibility() {
     state.showPassword = !state.showPassword;
@@ -38,25 +75,26 @@ function togglePasswordVisibility() {
             <p class="text-white-500 text-base">Sign in to continue your journey</p>
         </div>
         <form id="loginForm">
+            <p v-if="state.errors.email" class="text-red-500 text-sm mt-1">{{ state.errors.email }}</p>
             <div class="relative mb-6">
-                <input v-model="state.email" type="email" id="email"
+                <input v-model="state.email" type="email" required id="email"
                     class="w-full py-4 pl-12 bg-teal-300/5  border border-black/10 rounded-xl text-white-500 text-base focus:outline-none focus:ring-1 focus:ring-white/30 placeholder-white-500 transition"
-                    placeholder="Email address" />
+                    placeholder="Email address" @blur="validateEmail" />
                 <i class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white-500 fa fa-envelope"></i>
-                <span class="text-red-500 text-sm mt-1 hidden" id="emailError"></span>
             </div>
 
+            <p v-if="state.errors.password" class="text-red-500 text-sm mt-1">{{ state.errors.password }}</p>
             <div class="relative mb-6">
                 <input v-model="state.password" :type="state.showPassword ? 'text' : 'password'" id="password"
                     class="w-full py-4 pl-12 bg-teal-300/5  border border-black/10 rounded-xl text-white-500 text-base focus:outline-none focus:ring-1 focus:ring-white/30 placeholder-white-500 transition"
-                    placeholder="Password" />
+                    placeholder="Password" @blur="validatePassword" />
                 <i class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white-500 fa fa-lock"></i>
                 <i @click="togglePasswordVisibility"
                     class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white-500 fa"
                     :class="state.showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
             </div>
 
-            <button @click="login" type="submit"
+            <button @click.prevent="login" type="submit"
                 class="w-full py-4 bg-red-300 text-purple-500 rounded-xl text-base font-semibold cursor-pointer transition transform hover:-translate-y-1 hover:shadow-lg">
                 Sign In
             </button>
