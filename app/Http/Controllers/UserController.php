@@ -52,12 +52,12 @@ class UserController extends Controller {
 
 			return response()->json([
 				'status'  => 'success',
-				'message' => 'User created successfully!',
-			]);
+				'message' => 'User registration successful!',
+			], 200);
 		} catch (Exception $e) {
 			return response()->json([
 				'status'  => 'Failed',
-				'message' => $e->getMessage(),
+				'message' => 'User registration failed!',
 			]);
 		}
 	}
@@ -74,12 +74,12 @@ class UserController extends Controller {
 			return response()->json([
 				'status'  => 'success',
 				'message' => 'User login successfully!',
-			])->cookie('token', $token, 3600 * 24);
+			], 200)->cookie('token', $token, time() + 60 * 24 * 30);
 		} else {
 			return response()->json([
 				'status'  => 'Failed',
 				'message' => 'Unauthorized access!',
-			]);
+			], 401);
 		}
 	}
 
@@ -95,49 +95,37 @@ class UserController extends Controller {
 			return response()->json([
 				'status'  => 'success',
 				'message' => 'OTP sent successfully!',
-			]);
+			], 200);
 		} else {
 			return response()->json([
 				'status'  => 'Failed',
 				'message' => 'Invalid email!',
-			]);
+			], 401);
 		}
 	}
 
 	function VerifyOtpCOde(Request $request) {
 		$email = $request->input('email');
 		$otp   = $request->input('otp');
-		$count = User::where('email', '=', $email)->where('otp', '=', $otp)->count();
+		$count = User::where('email', '=', $email)
+			->where('otp', '=', $otp)->count();
+
 		if ($count == 1) {
-			// Convert the 'updated_at' string to a Unix timestamp
-			$updatedAtTimestamp = intval(strtotime($request->input('updated_at')));
-			$newTime            = intval(time());
+			// Database OTP Update
+			User::where('email', '=', $email)->update(['otp' => '0']);
 
-			// Check if OTP is expired (5 minutes = 60 * 5 seconds)
-			if ($updatedAtTimestamp < $newTime - 60 * 5) {
-				// OTP Code Update Table
-				User::where('email', '=', $email)->update(['otp' => '0']);
+			// Pass Reset Token Issue
+			$token = JWTToken::CreateTokenForSetPassword($request->input('email'));
+			return response()->json([
+				'status'  => 'success',
+				'message' => 'OTP Verification Successful',
+			], 200)->cookie('token', $token, 60 * 24 * 30);
 
-				// Password Reset Token issue
-				$token = JWTToken::CreateTokenForSetPassword($email);
-
-				return response()->json([
-					'status'  => 'success',
-					'message' => 'OTP verified successfully!',
-				])->cookie('token', $token, 3600 * 24);
-			} else {
-				User::where('email', '=', $email)->update(['otp' => '0']);
-
-				return response()->json([
-					'status'  => 'Failed',
-					'message' => 'Invalid OTP!',
-				]);
-			}
 		} else {
 			return response()->json([
-				'status'  => 'Failed',
-				'message' => 'Invalid OTP!',
-			]);
+				'status'  => 'failed',
+				'message' => 'unauthorized',
+			], 401);
 		}
 	}
 
@@ -151,16 +139,16 @@ class UserController extends Controller {
 			return response()->json([
 				'status'  => 'success',
 				'message' => 'Password reset successfully!',
-			]);
+			], 200);
 		} catch (Exception $e) {
 			return response()->json([
 				'status'  => 'Failed',
 				'message' => $e->getMessage(),
-			]);
+			], 401);
 		}
 	}
 
-	function UserLogout(Request $request) {
+	function UserLogout() {
 		return redirect('/login')->cookie('token', '', -1);
 	}
 
@@ -171,7 +159,7 @@ class UserController extends Controller {
 			'status'  => 'success',
 			'message' => 'Request successful!',
 			'data'    => $user,
-		]);
+		], 200);
 	}
 
 	function UpdateProfile(Request $request) {
@@ -192,13 +180,12 @@ class UserController extends Controller {
 			return response()->json([
 				'status'  => 'success',
 				'message' => 'Profile updated successfully!',
-			]);
+			], 200);
 		} catch (Exception $e) {
 			return response()->json([
 				'status'  => 'Failed',
-				'message' => $e->getMessage(),
-			]);
+				'message' => 'Something Went Wrong',
+			], 401);
 		}
 	}
-
 }

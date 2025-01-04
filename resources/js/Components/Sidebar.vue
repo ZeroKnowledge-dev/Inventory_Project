@@ -14,6 +14,13 @@
         </li>
 
         <li>
+            <a href="/category"
+                class="flex items-center text-black text-lg font-medium hover:text-purple-500 transition">
+                <i class="fa fa-list mr-4"></i> Category
+            </a>
+        </li>
+
+        <li>
             <a href="/logout" class="flex items-center text-black text-lg font-medium hover:text-purple-500 transition">
                 <i class="fa fa-sign-out-alt mr-4"></i> Logout
             </a>

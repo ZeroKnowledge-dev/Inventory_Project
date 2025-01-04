@@ -7,6 +7,7 @@ import TopBar from '@/Components/TopBar.vue';
 <template>
     <Background />
     <TopBar />
+
 </template>
 
 <style scoped></style>
