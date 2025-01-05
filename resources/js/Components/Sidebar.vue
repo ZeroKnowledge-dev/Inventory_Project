@@ -21,6 +21,13 @@
         </li>
 
         <li>
+            <a href="/customer"
+                class="flex items-center text-black text-lg font-medium hover:text-purple-500 transition">
+                <i class="fa fa-users mr-4"></i> Customer
+            </a>
+        </li>
+
+        <li>
             <a href="/logout" class="flex items-center text-black text-lg font-medium hover:text-purple-500 transition">
                 <i class="fa fa-sign-out-alt mr-4"></i> Logout
             </a>
