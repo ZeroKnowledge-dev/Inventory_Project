@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
 import Sidebar from './Sidebar.vue';
 
 const showDropdown = ref(false);
@@ -15,7 +16,7 @@ function toggleDropdown() {
     <div class="bg-purple-500 z-20 text-white p-4 flex justify-between items-center shadow-lg">
         <!-- Left Side: Logo or App Name -->
         <div class="text-2xl font-extrabold">
-            <a href="/dashboard">Dashboard</a>
+            <Link href="/dashboard">Dashboard</Link>
         </div>
 
         <!-- Right Side: User Profile and Actions -->
