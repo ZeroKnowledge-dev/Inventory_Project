@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\TokenVerificationMiddleware;
@@ -32,6 +33,8 @@ Route::get('/profile', [UserController::class, 'ProfilePage'])->name('profile')-
 Route::get('/category', [CategoryController::class, 'CategoryPage'])->middleware([TokenVerificationMiddleware::class]);
 Route::get('/customer', [CustomerController::class, 'CustomerPage'])->middleware([TokenVerificationMiddleware::class]);
 Route::get('/product', [ProductController::class, 'ProductPage'])->middleware([TokenVerificationMiddleware::class]);
+Route::get('/invoice', [InvoiceController::class, 'InvoicePage'])->middleware([TokenVerificationMiddleware::class]);
+Route::get('/sales', [InvoiceController::class, 'SalesPage'])->middleware([TokenVerificationMiddleware::class]);
 
 // Category API
 Route::post("/create-category", [CategoryController::class, 'AddCategory'])->middleware([TokenVerificationMiddleware::class]);
@@ -53,6 +56,12 @@ Route::post("/delete-product", [ProductController::class, 'DeleteProduct'])->mid
 Route::post("/update-product", [ProductController::class, 'UpdateProduct'])->middleware([TokenVerificationMiddleware::class]);
 Route::get("/list-product", [ProductController::class, 'ProductList'])->middleware([TokenVerificationMiddleware::class]);
 Route::post("/product-by-id", [ProductController::class, 'ProductByID'])->middleware([TokenVerificationMiddleware::class]);
+
+// Invoice API
+Route::post("/invoice-create", [InvoiceController::class, 'invoiceCreate'])->middleware([TokenVerificationMiddleware::class]);
+Route::get("/invoice-select", [InvoiceController::class, 'invoiceSelect'])->middleware([TokenVerificationMiddleware::class]);
+Route::post("/invoice-details", [InvoiceController::class, 'InvoiceDetails'])->middleware([TokenVerificationMiddleware::class]);
+Route::post("/invoice-delete", [InvoiceController::class, 'invoiceDelete'])->middleware([TokenVerificationMiddleware::class]);
 
 // Logout Route
 Route::get('/logout', [UserController::class, 'UserLogout'])->name('logout');
