@@ -93,7 +93,8 @@ This Laravel application offers essential user functionalities, including:
 -   Invoice Delete
 -   Report Generate
 -   Report Download
--   ***
+
+---
 
 ## License
 
