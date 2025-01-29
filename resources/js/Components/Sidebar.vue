@@ -49,6 +49,13 @@ import { Link } from '@inertiajs/vue3';
         </li>
 
         <li>
+            <Link href="/report"
+                class="flex items-center text-black text-lg font-medium hover:text-purple-500 transition">
+            <i class="fa fa-chart-bar mr-4"></i> Report
+            </Link>
+        </li>
+
+        <li>
             <Link href="/logout"
                 class="flex items-center text-black text-lg font-medium hover:text-purple-500 transition">
             <i class="fa fa-sign-out-alt mr-4"></i> Logout
