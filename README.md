@@ -14,9 +14,15 @@
 This Laravel application offers essential user functionalities, including:
 
 -   User Registration
--   Login
+-   Login & Logout
 -   Password Reset
 -   Update Profile
+-   Customer Section
+-   Category Section
+-   Product Section
+-   Sales Section
+-   Invoice Section
+-   Report Generate
 
 ---
 
@@ -69,7 +75,7 @@ This Laravel application offers essential user functionalities, including:
 
 -   Dashboard
 -   User Registration
--   Login
+-   Login & Logout
 -   Password Reset
 -   Update Profile
 -   Add Customer
