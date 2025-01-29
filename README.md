@@ -67,12 +67,27 @@ This Laravel application offers essential user functionalities, including:
 
 ## Features
 
+-   Dashboard
 -   User Registration
 -   Login
 -   Password Reset
 -   Update Profile
-
----
+-   Add Customer
+-   Edit Customer
+-   Delete Customer
+-   Add Category
+-   Edit Category
+-   Delete Category
+-   Add Product
+-   Edit Product
+-   Delete Product
+-   Sales
+-   Invoice Create
+-   Invoice view
+-   Invoice Delete
+-   Report Generate
+-   Report Download
+-   ***
 
 ## License
 
