@@ -129,6 +129,7 @@ async function createInvoice() {
         state.customer_id = '';
         state.customer_name = '';
         state.customer_email = '';
+        calculation.discount = 0;
         state.invoiceItems = [];
         calculateTotal();
     } catch (error) {

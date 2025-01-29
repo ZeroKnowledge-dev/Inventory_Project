@@ -30,14 +30,21 @@ import { Link } from '@inertiajs/vue3';
         <li>
             <Link href="/product"
                 class="flex items-center text-black text-lg font-medium hover:text-purple-500 transition">
-            <i class="fa fa-box mr-4"></i> Product
+            <i class="fa fa-cubes mr-4"></i> Product
             </Link>
         </li>
 
         <li>
             <Link href="/sales"
                 class="flex items-center text-black text-lg font-medium hover:text-purple-500 transition">
-            <i class="fa fa-box mr-4"></i> Sales
+            <i class="fa fa-chart-line mr-4"></i> Sales
+            </Link>
+        </li>
+
+        <li>
+            <Link href="/invoice"
+                class="flex items-center text-black text-lg font-medium hover:text-purple-500 transition">
+            <i class="fa fa-file-invoice-dollar mr-4"></i> Invoice
             </Link>
         </li>
 
