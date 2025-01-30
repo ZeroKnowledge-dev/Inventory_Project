@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class UserController extends Controller {
-	public function welcome() {
-		return Inertia::render('Welcome');
-	}
-
 	public function RegistrationPage() {
 		return Inertia::render('RegistrationForm');
 	}

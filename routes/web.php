@@ -11,13 +11,12 @@ use App\Http\Middleware\TokenVerificationMiddleware;
 use Illuminate\Support\Facades\Route;
 
 // Pages Routes
-Route::get('/', [UserController::class, 'welcome'])->name('welcome');
+Route::get('/', [DashboardController::class, 'DashboardPage'])->name('dashboard')->middleware([TokenVerificationMiddleware::class]);
 Route::get('/registration', [UserController::class, 'RegistrationPage'])->name('registration');
 Route::get('/login', [UserController::class, 'LoginPage'])->name('login');
 Route::get('/forgotPassword', [UserController::class, 'ForgotPasswordPage'])->name('forgotPassword');
 Route::get('/otpVerification', [UserController::class, 'OTPVerificationPage'])->name('otpVerification');
 Route::get('/resetPassword', [UserController::class, 'ResetPasswordPage'])->name('resetPassword')->middleware([TokenVerificationMiddleware::class]);
-Route::get('/dashboard', [DashboardController::class, 'DashboardPage'])->name('dashboard')->middleware([TokenVerificationMiddleware::class]);
 Route::get('/profile', [UserController::class, 'ProfilePage'])->name('profile')->middleware([TokenVerificationMiddleware::class]);
 Route::get('/category', [CategoryController::class, 'CategoryPage'])->middleware([TokenVerificationMiddleware::class]);
 Route::get('/customer', [CustomerController::class, 'CustomerPage'])->middleware([TokenVerificationMiddleware::class]);

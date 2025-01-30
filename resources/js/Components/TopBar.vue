@@ -16,7 +16,7 @@ function toggleDropdown() {
     <div class="bg-purple-500 z-20 text-white p-4 flex justify-between items-center shadow-lg">
         <!-- Left Side: Logo or App Name -->
         <div class="text-2xl font-extrabold">
-            <Link href="/dashboard">Dashboard</Link>
+            <Link href="/">Dashboard</Link>
         </div>
 
         <!-- Right Side: User Profile and Actions -->

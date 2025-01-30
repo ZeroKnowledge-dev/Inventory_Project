@@ -38,7 +38,7 @@ async function login() {
         nProgress.done();
 
         if (response.status === 200 && response.data.status === 'success') {
-            window.location.href = '/dashboard';
+            window.location.href = '/';
         } else {
             alert(response.data.message);
         }
